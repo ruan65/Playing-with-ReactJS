@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import ProjectsItem from './ProjectsItem'
 
 class Projects extends Component {
+
+  deleteProject(id) {
+    // console.log("delete it: " + id);
+    this.props.onDelete(id)
+
+  }
+
   render() {
 
     // console.log(this.props);
@@ -12,7 +19,7 @@ class Projects extends Component {
       projectsItems = this.props.projects.map( project => {
         // console.log(project);
 
-        return <ProjectsItem key={project.title} project={project} />
+        return <ProjectsItem onDelete={this.deleteProject.bind(this, project.id)} key={project.title} project={project} />
       });
     }
     return (
