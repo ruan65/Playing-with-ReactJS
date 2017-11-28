@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
 import Projects from './components/Projects';
+import Todos from './components/Todos';
 import AddProject from './components/AddProject';
 import $ from 'jquery'
 import './App.css';
@@ -11,9 +12,8 @@ class App extends Component {
     super();
     this.state = {
 
-      projects: [
-
-      ]
+      projects: [],
+      todos: []
     }
   }
 
@@ -47,7 +47,11 @@ class App extends Component {
       cache: false,
 
       success: function(data) {
-        console.log(data);
+        // console.log(data);
+        this.setState({todos: data}, function() {
+          console.log("Checking state");
+          console.log(this.state);
+        })
       }.bind(this),
 
       error: function(xhr, status, err) {
@@ -92,6 +96,10 @@ class App extends Component {
         <AddProject addProject={this.handleAddProject.bind(this)} />
 
         <Projects onDelete={this.handleDeleteProject.bind(this)} projects={this.state.projects} />
+
+        <hr/>
+        <Todos todos={this.state.todos} />
+
       </div>
     );
   }
